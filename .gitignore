@@ -49,3 +49,13 @@ external/bsd/llvm/dist/clang/test/CodeGenCXX/microsoft-abi-vtables-multiple-nonv
 external/bsd/llvm/dist/llvm/test/Verifier/bitcast-address-space-through-constant-inttoptr-inside-gep-i
 lib/libc/compat__*
 .gdbinit
+
+# Distfiles fetched at build time by the fetch.sh scripts, and the trees
+# they unpack to.  Required inputs, not build products: deleting them
+# costs a re-download.  Only the two that this configuration actually
+# uses are listed; the gcc/gmp/mpfr/mpc/gmake fetches are gated on
+# HAVE_GCC and never run.
+/gnu/dist/texinfo-4.8.tar.bz2
+/gnu/dist/texinfo/
+/external/gpl3/binutils/binutils-2.23.2.tar.bz2
+/external/gpl3/binutils/dist/
