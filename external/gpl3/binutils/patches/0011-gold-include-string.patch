@@ -1,0 +1,30 @@
+From: Nicholas Martin <nmartin0@users.noreply.github.com>
+Subject: [PATCH] gold: include <string> explicitly in errors.h
+
+Building gold with GCC 14 on Debian 13 fails:
+
+    gold/errors.h:87:50: error: 'string' in namespace 'std' does not
+        name a type
+       87 |   undefined_symbol(const Symbol* sym, const std::string& location);
+    note: 'std::string' is defined in header '<string>'; this is
+          probably fixable by adding '#include <string>'
+
+errors.h has used std::string since it was written, but never included
+<string>.  It compiled because libstdc++ headers used to pull <string>
+in transitively; they no longer do.  binutils 2.23.2 is from 2013, so
+this was never noticed here.
+
+The declaration is placed with <cstdarg>, matching the file's own
+grouping of standard headers before local ones.
+
+diff --git a/gold/errors.h b/gold/errors.h
+--- a/gold/errors.h
++++ b/gold/errors.h
+@@ -24,6 +24,7 @@
+ #define GOLD_ERRORS_H
+ 
+ #include <cstdarg>
++#include <string>
+ 
+ #include "gold-threads.h"
+ 
