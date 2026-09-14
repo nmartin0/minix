@@ -6,6 +6,9 @@ cscope.*
 *.orig
 *.diff
 *.patch
+# ...but patches/ directories hold the tree's own patch sets, applied
+# by the fetch.sh scripts against vendored sources.  They are tracked.
+!**/patches/*.patch
 *.rej
 *.[1-9].gz
 *.o
